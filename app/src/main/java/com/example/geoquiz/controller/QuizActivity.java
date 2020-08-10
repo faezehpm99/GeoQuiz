@@ -2,9 +2,10 @@ package com.example.geoquiz.controller;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -22,6 +23,7 @@ public class QuizActivity extends AppCompatActivity {
     private static final String BUNDLE_KEY_CURRENT_INDEX = "currentIndex";
     public static final String EXTRA_QUESTION_ANSWER = "com.example.geoquiz.questionAnswer";
     private static final String TAG = "QuizActivity";
+    public static final int REQUEST_CODE_SETTING = 1;
     private final String BUNDLE_KEY_CURRENT="currentIndex";
     private final String BUNDLE_KEY_SCORE="score";
     private final String BUNDLE_KEY_SELECTED="selected";
@@ -29,7 +31,7 @@ public class QuizActivity extends AppCompatActivity {
     private final String BUNDLE_KEY_ARR="arr";
     private final String BUNDLE_KEY_ARR_CHEAT="arr";
     public static final int REQUEST_CODE_CHEAT = 0;
-   /* private boolean mIsCheater = false;*/
+    private Button mButtonSetting;
     private TextView mTextViewQuestion;
     private Button mButtonTrue;
     private Button mButtonFalse;
@@ -37,6 +39,7 @@ public class QuizActivity extends AppCompatActivity {
     private Button mButtonPrev;
     private Button mButtonReset;
     private TextView result;
+    private LinearLayout background;
     private LinearLayout text_end;
     private LinearLayout true_false_buttom;
     private LinearLayout prev_next_buttom;
@@ -111,6 +114,36 @@ public class QuizActivity extends AppCompatActivity {
             boolean isCheat = data.getBooleanExtra(CheatActivity.EXTRA_IS_CHEAT, false);
             cheatList[mCurrentIndex]=true;
         }
+        else if (requestCode==REQUEST_CODE_SETTING){
+            String color=data.getStringExtra(SettingActivity.EXTRA_COLOR);
+
+            int size=data.getIntExtra(SettingActivity.EXTRA_SIZE,10);
+            if (color.contains("red")){
+                background.setBackgroundColor(Color.parseColor("#F44336"));
+
+
+            }
+            else if (color.contains("green")){
+                background.setBackgroundColor(Color.parseColor("#57CC5C"));
+            }
+            else if (color.contains("blue")){
+                background.setBackgroundColor(Color.parseColor("#3F51B5"));
+            }
+            else if (color.contains("white")){
+                background.setBackgroundColor(Color.parseColor("#EBECF1"));
+            }
+            if (size==14){
+                mTextViewQuestion.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+            }
+            else if (size==18){
+                mTextViewQuestion.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+            }
+            else {
+                mTextViewQuestion.setTextSize(TypedValue.COMPLEX_UNIT_SP,26);
+
+            }
+
+        }
     }
 
     private void findViews() {
@@ -122,7 +155,8 @@ public class QuizActivity extends AppCompatActivity {
         mButtonReset=findViewById(R.id.button2);
         reset_layout=findViewById(R.id.reset_layout);
         mButtonCheat=findViewById(R.id.cheat_button);
-
+        mButtonSetting=findViewById(R.id.setting);
+        background=findViewById(R.id.background);
         text_end = findViewById(R.id.text_end);
         true_false_buttom = findViewById(R.id.true_false_button);
         prev_next_buttom = findViewById(R.id.pre_next_buttom);
@@ -243,6 +277,14 @@ public class QuizActivity extends AppCompatActivity {
                 intent.putExtra(EXTRA_QUESTION_ANSWER, mQuestionBank[mCurrentIndex].isAnswerTrue());
 
                 startActivityForResult(intent, REQUEST_CODE_CHEAT);
+            }
+        });
+        mButtonSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(QuizActivity.this, SettingActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_SETTING);
             }
         });
 

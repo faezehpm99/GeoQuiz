@@ -2,39 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="60dp"
-    android:layout_marginTop="100dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".controller.CheatActivity">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="140dp"
-        android:layout_marginTop="50dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:text="آیا از تقلب کردن مطمنید؟"
+        android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="30dp"
-            android:paddingTop="10dp"
-            android:text="ایا از تقلب کردن مطمن اید؟" />
+    <TextView
+        android:id="@+id/txtview_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
 
-        <TextView
-            android:id="@+id/txtview_answer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            tools:text="نادرست" />
-
-        <Button
-            android:id="@+id/btn_show_answer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/btn_show_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:text="بلی" />
 </LinearLayout>
